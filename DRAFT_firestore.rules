@@ -1,0 +1,184 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Default-Deny Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Reusable Hardened Primitives
+    function isValidId(id) {
+      return id is string && id.size() >= 2 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Validation Blueprint: Anonymous Installation Session (Zero PII)
+    function isValidInstallation(data, docId) {
+      return data.keys().hasAll([
+          'installId',
+          'region',
+          'timezone',
+          'preferredTheme',
+          'preferredReciter',
+          'platform',
+          'lastActiveAt'
+        ])
+        && data.keys().hasOnly([
+          'installId',
+          'region',
+          'timezone',
+          'preferredTheme',
+          'preferredReciter',
+          'platform',
+          'lastActiveAt'
+        ])
+        && data.installId is string
+        && data.installId.size() >= 8
+        && data.installId.size() <= 64
+        && data.installId.matches('^[a-zA-Z0-9_\\-]+$')
+        && data.installId == docId
+        && data.region is string
+        && data.region.size() >= 1
+        && data.region.size() <= 64
+        && data.timezone is string
+        && data.timezone.size() >= 1
+        && data.timezone.size() <= 64
+        && data.preferredTheme is string
+        && data.preferredTheme.size() <= 32
+        && data.preferredTheme in ['obsidian_black', 'cosmic_nebula', 'midnight_charcoal', 'emerald_shadow', 'warm_alabaster']
+        && data.preferredReciter is string
+        && data.preferredReciter.size() >= 2
+        && data.preferredReciter.size() <= 48
+        && data.preferredReciter.matches('^[a-zA-Z0-9_\\-]+$')
+        && data.platform is string
+        && data.platform.size() <= 16
+        && data.platform in ['pwa', 'web']
+        && data.lastActiveAt is timestamp
+        && data.lastActiveAt == request.time;
+    }
+
+    // Validation Blueprint: Anonymous Feature Metric
+    function isValidFeatureStat(data, docId) {
+      return data.keys().hasAll(['featureId', 'category', 'count', 'updatedAt'])
+        && data.keys().hasOnly(['featureId', 'category', 'count', 'updatedAt'])
+        && data.featureId is string
+        && data.featureId.size() >= 2
+        && data.featureId.size() <= 64
+        && data.featureId.matches('^[a-zA-Z0-9_\\-]+$')
+        && data.featureId == docId
+        && data.category is string
+        && data.category.size() <= 24
+        && data.category in ['navigation', 'reciter', 'explore', 'audio', 'hifz', 'ai']
+        && data.count is int
+        && data.count >= 1
+        && data.count <= 100000000
+        && data.updatedAt is timestamp
+        && data.updatedAt == request.time;
+    }
+
+    // Validation Blueprint: Singleton Global Ummah Ticker Stats
+    function isValidCommunityStats(data) {
+      return data.keys().hasAll(['activeNowCount', 'versesRecitedToday', 'totalVersesAllTime', 'dayKey', 'updatedAt'])
+        && data.keys().hasOnly(['activeNowCount', 'versesRecitedToday', 'totalVersesAllTime', 'dayKey', 'updatedAt'])
+        && data.activeNowCount is int
+        && data.activeNowCount >= 1
+        && data.activeNowCount <= 100000
+        && data.versesRecitedToday is int
+        && data.versesRecitedToday >= 0
+        && data.versesRecitedToday <= 100000000
+        && data.totalVersesAllTime is int
+        && data.totalVersesAllTime >= 0
+        && data.totalVersesAllTime <= 1000000000
+        && data.dayKey is string
+        && data.dayKey.size() == 10
+        && data.dayKey.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+        && data.updatedAt is timestamp
+        && data.updatedAt == request.time;
+    }
+
+    // Read-only startup connectivity probe document
+    match /test/connection {
+      allow get: if true;
+      allow list, write: if false;
+    }
+
+    // Anonymous Installation Sessions (No list enumeration, strict ID + schema)
+    match /installations/{installId} {
+      allow get: if isValidId(installId);
+      allow list: if false;
+      allow create: if isValidId(installId)
+        && installId.size() >= 8
+        && installId.size() <= 64
+        && isValidInstallation(incoming(), installId);
+      allow update: if isValidId(installId)
+        && isValidInstallation(incoming(), installId)
+        && incoming().installId == existing().installId
+        && incoming().diff(existing()).affectedKeys().hasOnly([
+          'region',
+          'timezone',
+          'preferredTheme',
+          'preferredReciter',
+          'platform',
+          'lastActiveAt'
+        ]);
+      allow delete: if false;
+    }
+
+    // Anonymous Feature Popularity Counters (Monotonic +1 increments only)
+    match /feature_stats/{featureId} {
+      allow get: if isValidId(featureId);
+      allow list: if false;
+      allow create: if isValidId(featureId)
+        && featureId.size() <= 64
+        && isValidFeatureStat(incoming(), featureId)
+        && incoming().count == 1;
+      allow update: if isValidId(featureId)
+        && isValidFeatureStat(incoming(), featureId)
+        && incoming().featureId == existing().featureId
+        && incoming().category == existing().category
+        && incoming().diff(existing()).affectedKeys().hasOnly(['count', 'updatedAt'])
+        && incoming().count == existing().count + 1;
+      allow delete: if false;
+    }
+
+    // Live Global Ummah Activity Ticker (Singleton 'global' doc only)
+    match /community_stats/{statsId} {
+      allow get: if isValidId(statsId) && statsId == 'global';
+      allow list: if false;
+      allow create: if isValidId(statsId)
+        && statsId == 'global'
+        && isValidCommunityStats(incoming())
+        && incoming().versesRecitedToday <= 50
+        && incoming().totalVersesAllTime <= 50;
+      allow update: if isValidId(statsId)
+        && statsId == 'global'
+        && isValidCommunityStats(incoming())
+        && incoming().diff(existing()).affectedKeys().hasOnly([
+          'activeNowCount',
+          'versesRecitedToday',
+          'totalVersesAllTime',
+          'dayKey',
+          'updatedAt'
+        ])
+        && incoming().totalVersesAllTime >= existing().totalVersesAllTime
+        && incoming().totalVersesAllTime <= existing().totalVersesAllTime + 50
+        && (
+          (incoming().dayKey == existing().dayKey
+            && incoming().versesRecitedToday >= existing().versesRecitedToday
+            && incoming().versesRecitedToday <= existing().versesRecitedToday + 50)
+          ||
+          (incoming().dayKey > existing().dayKey
+            && incoming().versesRecitedToday <= 50)
+        );
+      allow delete: if false;
+    }
+  }
+}

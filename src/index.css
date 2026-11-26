@@ -1,0 +1,812 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: 'Amiri Quran';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/AmiriQuran-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'KFGQPC Uthmanic Script HAFS';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/KFGQPC-UthmanicHafs-v18.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IndoPak Nastaleeq';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/IndoPak-Nastaleeq-v4.2.1.woff2') format('woff2');
+}
+
+@layer base {
+  html[data-theme="full_shining_gold"] {
+    --bg-canvas: #FFFDF5;
+    --bg-surface: #FFFBF0;
+    --bg-surface-glass: rgba(255, 251, 240, 0.95);
+    --bg-elevated: #FEF3C7;
+    --bg-input: #FDE68A;
+    --bg-nav: rgba(255, 253, 245, 0.96);
+    --bg-hero-from: #1F1905;
+    --bg-hero-via: #2E250A;
+    --bg-hero-to: #141004;
+    --text-primary: #181303;
+    --text-secondary: #5C4810;
+    --accent-gold: #B0891E;
+    --accent-gold-soft: #D4AF37;
+    --border-hairline: rgba(176, 137, 30, 0.40);
+    --border-strong: rgba(176, 137, 30, 0.70);
+    --stardust-color: rgba(212, 175, 55, 0.16);
+    --nebula-glow: radial-gradient(65% 42% at 50% 0%, rgba(253, 230, 138, 0.35) 0%, transparent 70%);
+  }
+
+  html[data-theme="full_shining_silver"] {
+    --bg-canvas: #F8FAFC;
+    --bg-surface: #FFFFFF;
+    --bg-surface-glass: rgba(255, 255, 255, 0.95);
+    --bg-elevated: #F1F5F9;
+    --bg-input: #E2E8F0;
+    --bg-nav: rgba(248, 250, 252, 0.96);
+    --bg-hero-from: #1E293B;
+    --bg-hero-via: #334155;
+    --bg-hero-to: #0F172A;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --accent-gold: #64748B;
+    --accent-gold-soft: #94A3B8;
+    --border-hairline: rgba(148, 163, 184, 0.40);
+    --border-strong: rgba(100, 116, 139, 0.65);
+    --stardust-color: rgba(148, 163, 184, 0.14);
+    --nebula-glow: radial-gradient(65% 42% at 50% 0%, rgba(226, 232, 240, 0.45) 0%, transparent 70%);
+  }
+
+  :root,
+  html[data-theme="royal_ivory"],
+  html[data-theme="warm_alabaster"] {
+    --bg-canvas: #FAF8F5;
+    --bg-surface: #FFFFFF;
+    --bg-surface-glass: rgba(255, 255, 255, 0.94);
+    --bg-elevated: #F3EFE6;
+    --bg-input: #EDE6D8;
+    --bg-nav: rgba(250, 248, 245, 0.96);
+    --bg-hero-from: #0A3321;
+    --bg-hero-via: #062115;
+    --bg-hero-to: #04180F;
+    --text-primary: #18201C;
+    --text-secondary: #52665A;
+    --accent-gold: #B0891E;
+    --accent-gold-soft: #D4AF37;
+    --border-hairline: rgba(176, 137, 30, 0.28);
+    --border-strong: rgba(176, 137, 30, 0.45);
+    --stardust-color: rgba(176, 137, 30, 0.08);
+    --nebula-glow: none;
+  }
+
+  html[data-theme="sage_serenity"] {
+    --bg-canvas: #F4F7F4;
+    --bg-surface: #FFFFFF;
+    --bg-surface-glass: rgba(255, 255, 255, 0.94);
+    --bg-elevated: #EAF0EB;
+    --bg-input: #DEE7DF;
+    --bg-nav: rgba(244, 247, 244, 0.96);
+    --bg-hero-from: #153320;
+    --bg-hero-via: #1C442B;
+    --bg-hero-to: #0D2215;
+    --text-primary: #1A291E;
+    --text-secondary: #4A6351;
+    --accent-gold: #4A6B53;
+    --accent-gold-soft: #6E9477;
+    --border-hairline: rgba(74, 107, 83, 0.28);
+    --border-strong: rgba(74, 107, 83, 0.48);
+    --stardust-color: rgba(74, 107, 83, 0.08);
+    --nebula-glow: none;
+  }
+
+  html[data-theme="pearl_majesty"] {
+    --bg-canvas: #F8F9FA;
+    --bg-surface: #FFFFFF;
+    --bg-surface-glass: rgba(255, 255, 255, 0.94);
+    --bg-elevated: #EEF2F6;
+    --bg-input: #E2E8F0;
+    --bg-nav: rgba(248, 249, 250, 0.96);
+    --bg-hero-from: #1E293B;
+    --bg-hero-via: #334155;
+    --bg-hero-to: #0F172A;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --accent-gold: #B0891E;
+    --accent-gold-soft: #D4AF37;
+    --border-hairline: rgba(148, 163, 184, 0.35);
+    --border-strong: rgba(100, 116, 139, 0.50);
+    --stardust-color: rgba(100, 116, 139, 0.08);
+    --nebula-glow: none;
+  }
+
+  html[data-theme="celestial_blue"] {
+    --bg-canvas: #F0F5FA;
+    --bg-surface: #FFFFFF;
+    --bg-surface-glass: rgba(255, 255, 255, 0.94);
+    --bg-elevated: #E2EDF8;
+    --bg-input: #D3E4F4;
+    --bg-nav: rgba(240, 245, 250, 0.96);
+    --bg-hero-from: #1E3A8A;
+    --bg-hero-via: #1D4ED8;
+    --bg-hero-to: #0F172A;
+    --text-primary: #0C1E3D;
+    --text-secondary: #334E68;
+    --accent-gold: #2563EB;
+    --accent-gold-soft: #3B82F6;
+    --border-hairline: rgba(37, 99, 235, 0.28);
+    --border-strong: rgba(37, 99, 235, 0.48);
+    --stardust-color: rgba(37, 99, 235, 0.08);
+    --nebula-glow: none;
+  }
+
+  html[data-theme="desert_sand"] {
+    --bg-canvas: #F9F6F0;
+    --bg-surface: #FFFFFF;
+    --bg-surface-glass: rgba(255, 255, 255, 0.94);
+    --bg-elevated: #F2ECE1;
+    --bg-input: #E6DC output;
+    --bg-nav: rgba(249, 246, 240, 0.96);
+    --bg-hero-from: #3D2614;
+    --bg-hero-via: #58371C;
+    --bg-hero-to: #24160B;
+    --text-primary: #2D1F12;
+    --text-secondary: #6B4E38;
+    --accent-gold: #A07855;
+    --accent-gold-soft: #C89D7C;
+    --border-hairline: rgba(160, 120, 85, 0.30);
+    --border-strong: rgba(160, 120, 85, 0.50);
+    --stardust-color: rgba(160, 120, 85, 0.09);
+    --nebula-glow: none;
+  }
+
+  html[data-theme="lavender_grace"] {
+    --bg-canvas: #F7F5FA;
+    --bg-surface: #FFFFFF;
+    --bg-surface-glass: rgba(255, 255, 255, 0.94);
+    --bg-elevated: #EFEBF5;
+    --bg-input: #E4DDF0;
+    --bg-nav: rgba(247, 245, 250, 0.96);
+    --bg-hero-from: #2E1065;
+    --bg-hero-via: #4C1D95;
+    --bg-hero-to: #1E0A45;
+    --text-primary: #231145;
+    --text-secondary: #5E467D;
+    --accent-gold: #7C3AED;
+    --accent-gold-soft: #9333EA;
+    --border-hairline: rgba(124, 58, 237, 0.28);
+    --border-strong: rgba(124, 58, 237, 0.48);
+    --stardust-color: rgba(124, 58, 237, 0.08);
+    --nebula-glow: none;
+  }
+
+  html[data-theme="rose_quartz"] {
+    --bg-canvas: #FAF5F6;
+    --bg-surface: #FFFFFF;
+    --bg-surface-glass: rgba(255, 255, 255, 0.94);
+    --bg-elevated: #F5EBEF;
+    --bg-input: #EBD9E1;
+    --bg-nav: rgba(250, 245, 246, 0.96);
+    --bg-hero-from: #4C0519;
+    --bg-hero-via: #831843;
+    --bg-hero-to: #2B020D;
+    --text-primary: #3B0C20;
+    --text-secondary: #743452;
+    --accent-gold: #BE185D;
+    --accent-gold-soft: #DB2777;
+    --border-hairline: rgba(190, 24, 93, 0.28);
+    --border-strong: rgba(190, 24, 93, 0.48);
+    --stardust-color: rgba(190, 24, 93, 0.08);
+    --nebula-glow: none;
+  }
+
+  html[data-theme="andalusian_pearl"] {
+    --bg-canvas: #F7FAF9;
+    --bg-surface: #FFFFFF;
+    --bg-surface-glass: rgba(255, 255, 255, 0.94);
+    --bg-elevated: #EDF5F3;
+    --bg-input: #DBECE8;
+    --bg-nav: rgba(247, 250, 249, 0.96);
+    --bg-hero-from: #042F2E;
+    --bg-hero-via: #115E59;
+    --bg-hero-to: #021B1A;
+    --text-primary: #102A24;
+    --text-secondary: #3D6359;
+    --accent-gold: #0D9488;
+    --accent-gold-soft: #14B8A6;
+    --border-hairline: rgba(13, 148, 136, 0.30);
+    --border-strong: rgba(13, 148, 136, 0.50);
+    --stardust-color: rgba(13, 148, 136, 0.08);
+    --nebula-glow: none;
+  }
+
+  html[data-theme="mint_oasis"] {
+    --bg-canvas: #F2FAF6;
+    --bg-surface: #FFFFFF;
+    --bg-surface-glass: rgba(255, 255, 255, 0.94);
+    --bg-elevated: #E5F5ED;
+    --bg-input: #D3EFE1;
+    --bg-nav: rgba(242, 250, 246, 0.96);
+    --bg-hero-from: #064E3B;
+    --bg-hero-via: #047857;
+    --bg-hero-to: #022C22;
+    --text-primary: #0A2B1D;
+    --text-secondary: #36614E;
+    --accent-gold: #059669;
+    --accent-gold-soft: #10B981;
+    --border-hairline: rgba(5, 150, 105, 0.28);
+    --border-strong: rgba(5, 150, 105, 0.48);
+    --stardust-color: rgba(5, 150, 105, 0.08);
+    --nebula-glow: none;
+  }
+
+  html[data-theme="scholars_manuscript"] {
+    --bg-canvas: #F5EFE6;
+    --bg-surface: #FAF5ED;
+    --bg-surface-glass: rgba(250, 245, 237, 0.95);
+    --bg-elevated: #EADCC9;
+    --bg-input: #DECBB3;
+    --bg-nav: rgba(245, 239, 230, 0.96);
+    --bg-hero-from: #3D2614;
+    --bg-hero-via: #5C381E;
+    --bg-hero-to: #22140A;
+    --text-primary: #3D2B1F;
+    --text-secondary: #6B523E;
+    --accent-gold: #8B5A2B;
+    --accent-gold-soft: #B0891E;
+    --border-hairline: rgba(139, 90, 43, 0.32);
+    --border-strong: rgba(139, 90, 43, 0.52);
+    --stardust-color: rgba(139, 90, 43, 0.09);
+    --nebula-glow: none;
+  }
+
+  /* 10 Dark Themes */
+  .dark,
+  html[data-theme="obsidian_black"] {
+    --bg-canvas: #09090B;
+    --bg-surface: #141417;
+    --bg-surface-glass: rgba(20, 20, 23, 0.94);
+    --bg-elevated: #1D1D22;
+    --bg-input: #0D0D10;
+    --bg-nav: rgba(10, 10, 13, 0.96);
+    --bg-hero-from: #1B1811;
+    --bg-hero-via: #111114;
+    --bg-hero-to: #09090B;
+    --text-primary: #FAF6EB;
+    --text-secondary: #C6C1B5;
+    --accent-gold: #D4AF37;
+    --accent-gold-soft: #F3E5AB;
+    --border-hairline: rgba(212, 175, 55, 0.25);
+    --border-strong: rgba(212, 175, 55, 0.48);
+    --stardust-color: rgba(212, 175, 55, 0.06);
+    --nebula-glow: radial-gradient(65% 42% at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+  }
+
+  html[data-theme="imperial_burgundy"] {
+    --bg-canvas: #1C0202;
+    --bg-surface: #280505;
+    --bg-surface-glass: rgba(40, 5, 5, 0.94);
+    --bg-elevated: #380808;
+    --bg-input: #150101;
+    --bg-nav: rgba(28, 2, 2, 0.96);
+    --bg-hero-from: #3D0808;
+    --bg-hero-via: #280505;
+    --bg-hero-to: #180101;
+    --text-primary: #FAF0E6;
+    --text-secondary: #E0C7BF;
+    --accent-gold: #D4AF37;
+    --accent-gold-soft: #F3E5AB;
+    --border-hairline: rgba(212, 175, 55, 0.30);
+    --border-strong: rgba(212, 175, 55, 0.52);
+    --stardust-color: rgba(212, 175, 55, 0.08);
+    --nebula-glow: radial-gradient(65% 45% at 50% 0%, rgba(185, 28, 28, 0.22) 0%, transparent 70%);
+  }
+
+  html[data-theme="emerald_dynasty"],
+  html[data-theme="emerald_shadow"] {
+    --bg-canvas: #020A06;
+    --bg-surface: #061A11;
+    --bg-surface-glass: rgba(6, 26, 17, 0.94);
+    --bg-elevated: #0B2A1C;
+    --bg-input: #010704;
+    --bg-nav: rgba(2, 11, 7, 0.96);
+    --bg-hero-from: #0D3321;
+    --bg-hero-via: #061C12;
+    --bg-hero-to: #020A06;
+    --text-primary: #FAF6EB;
+    --text-secondary: #BDD8CA;
+    --accent-gold: #D4AF37;
+    --accent-gold-soft: #F3E5AB;
+    --border-hairline: rgba(212, 175, 55, 0.28);
+    --border-strong: rgba(212, 175, 55, 0.50);
+    --stardust-color: rgba(212, 175, 55, 0.09);
+    --nebula-glow: radial-gradient(66% 48% at 14% 8%, rgba(16, 185, 129, 0.18) 0%, transparent 70%);
+  }
+
+  html[data-theme="graphite_titanium"] {
+    --bg-canvas: #121316;
+    --bg-surface: #1B1D22;
+    --bg-surface-glass: rgba(27, 29, 34, 0.94);
+    --bg-elevated: #262930;
+    --bg-input: #0C0D0F;
+    --bg-nav: rgba(18, 19, 22, 0.96);
+    --bg-hero-from: #262932;
+    --bg-hero-via: #1C1E24;
+    --bg-hero-to: #0F1013;
+    --text-primary: #F1F5F9;
+    --text-secondary: #94A3B8;
+    --accent-gold: #CBD5E1;
+    --accent-gold-soft: #E2E8F0;
+    --border-hairline: rgba(148, 163, 184, 0.26);
+    --border-strong: rgba(148, 163, 184, 0.48);
+    --stardust-color: rgba(148, 163, 184, 0.07);
+    --nebula-glow: none;
+  }
+
+  html[data-theme="cosmic_amethyst"],
+  html[data-theme="cosmic_nebula"] {
+    --bg-canvas: #0C061A;
+    --bg-surface: #170D30;
+    --bg-surface-glass: rgba(23, 13, 48, 0.94);
+    --bg-elevated: #24154A;
+    --bg-input: #080312;
+    --bg-nav: rgba(12, 6, 26, 0.96);
+    --bg-hero-from: #2E1065;
+    --bg-hero-via: #1E0B42;
+    --bg-hero-to: #0A0317;
+    --text-primary: #FAF5FF;
+    --text-secondary: #D8B4FE;
+    --accent-gold: #E2BE4C;
+    --accent-gold-soft: #F5E8B3;
+    --border-hairline: rgba(167, 139, 250, 0.30);
+    --border-strong: rgba(212, 175, 55, 0.52);
+    --stardust-color: rgba(243, 229, 171, 0.18);
+    --nebula-glow:
+      radial-gradient(68% 52% at 12% 6%, rgba(124, 58, 237, 0.34) 0%, transparent 68%),
+      radial-gradient(62% 50% at 88% 16%, rgba(13, 148, 136, 0.24) 0%, transparent 68%),
+      radial-gradient(54% 46% at 24% 84%, rgba(79, 70, 229, 0.22) 0%, transparent 70%);
+  }
+
+  html[data-theme="obsidian_leather"] {
+    --bg-canvas: #120A06;
+    --bg-surface: #1D120B;
+    --bg-surface-glass: rgba(29, 18, 11, 0.94);
+    --bg-elevated: #2B1B11;
+    --bg-input: #0A0503;
+    --bg-nav: rgba(18, 10, 6, 0.96);
+    --bg-hero-from: #321B0E;
+    --bg-hero-via: #211208;
+    --bg-hero-to: #0E0704;
+    --text-primary: #FDF6E2;
+    --text-secondary: #D4B89B;
+    --accent-gold: #CD7F32;
+    --accent-gold-soft: #E5A93C;
+    --border-hairline: rgba(205, 127, 50, 0.32);
+    --border-strong: rgba(205, 127, 50, 0.52);
+    --stardust-color: rgba(205, 127, 50, 0.10);
+    --nebula-glow: radial-gradient(65% 45% at 50% 0%, rgba(205, 127, 50, 0.15) 0%, transparent 70%);
+  }
+
+  html[data-theme="abyssal_teal"] {
+    --bg-canvas: #031214;
+    --bg-surface: #061D21;
+    --bg-surface-glass: rgba(6, 29, 33, 0.94);
+    --bg-elevated: #0B2E34;
+    --bg-input: #020B0C;
+    --bg-nav: rgba(3, 18, 20, 0.96);
+    --bg-hero-from: #0A363E;
+    --bg-hero-via: #062228;
+    --bg-hero-to: #020F11;
+    --text-primary: #F0FDFA;
+    --text-secondary: #99F6E4;
+    --accent-gold: #2DD4BF;
+    --accent-gold-soft: #5EEAD4;
+    --border-hairline: rgba(45, 212, 191, 0.28);
+    --border-strong: rgba(45, 212, 191, 0.50);
+    --stardust-color: rgba(45, 212, 191, 0.08);
+    --nebula-glow: radial-gradient(65% 45% at 50% 0%, rgba(13, 148, 136, 0.20) 0%, transparent 70%);
+  }
+
+  html[data-theme="black_copper"] {
+    --bg-canvas: #0F1115;
+    --bg-surface: #1A1D24;
+    --bg-surface-glass: rgba(26, 29, 36, 0.94);
+    --bg-elevated: #262B35;
+    --bg-input: #0A0B0E;
+    --bg-nav: rgba(15, 17, 21, 0.96);
+    --bg-hero-from: #341F14;
+    --bg-hero-via: #211B1F;
+    --bg-hero-to: #0F1115;
+    --text-primary: #FEF3C7;
+    --text-secondary: #D1D5DB;
+    --accent-gold: #B85D19;
+    --accent-gold-soft: #D97706;
+    --border-hairline: rgba(184, 93, 25, 0.35);
+    --border-strong: rgba(217, 119, 6, 0.55);
+    --stardust-color: rgba(217, 119, 6, 0.10);
+    --nebula-glow: radial-gradient(65% 45% at 50% 0%, rgba(184, 93, 25, 0.18) 0%, transparent 70%);
+  }
+
+  html[data-theme="storm_sovereign"],
+  html[data-theme="midnight_charcoal"] {
+    --bg-canvas: #0A0F1D;
+    --bg-surface: #11192E;
+    --bg-surface-glass: rgba(17, 25, 46, 0.94);
+    --bg-elevated: #1A2542;
+    --bg-input: #060A14;
+    --bg-nav: rgba(10, 15, 29, 0.96);
+    --bg-hero-from: #15274C;
+    --bg-hero-via: #101E3D;
+    --bg-hero-to: #060B18;
+    --text-primary: #F0F9FF;
+    --text-secondary: #93C5FD;
+    --accent-gold: #60A5FA;
+    --accent-gold-soft: #93C5FD;
+    --border-hairline: rgba(96, 165, 250, 0.28);
+    --border-strong: rgba(96, 165, 250, 0.50);
+    --stardust-color: rgba(96, 165, 250, 0.08);
+    --nebula-glow: radial-gradient(68% 48% at 16% 8%, rgba(37, 99, 235, 0.22) 0%, transparent 70%);
+  }
+
+  html[data-theme="arabian_dusk"] {
+    --bg-canvas: #140D07;
+    --bg-surface: #1F150D;
+    --bg-surface-glass: rgba(31, 21, 13, 0.94);
+    --bg-elevated: #2D1F13;
+    --bg-input: #0D0804;
+    --bg-nav: rgba(20, 13, 7, 0.96);
+    --bg-hero-from: #381E0F;
+    --bg-hero-via: #25140A;
+    --bg-hero-to: #110904;
+    --text-primary: #FFFBEB;
+    --text-secondary: #D6C7B2;
+    --accent-gold: #E5A93C;
+    --accent-gold-soft: #FDE68A;
+    --border-hairline: rgba(229, 169, 60, 0.32);
+    --border-strong: rgba(229, 169, 60, 0.55);
+    --stardust-color: rgba(229, 169, 60, 0.10);
+    --nebula-glow: radial-gradient(65% 45% at 50% 0%, rgba(229, 169, 60, 0.16) 0%, transparent 70%);
+  }
+
+  html {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    max-width: 100%;
+    overflow-x: clip;
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+}
+
+.theme-canvas {
+  background-color: var(--bg-canvas);
+  background-image:
+    var(--nebula-glow),
+    radial-gradient(circle at 1px 1px, var(--stardust-color) 1px, transparent 0);
+  background-size: 100% 100%, 28px 28px;
+  background-attachment: fixed;
+  color: var(--text-primary);
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.theme-surface {
+  background-color: var(--bg-surface);
+  border-color: var(--border-hairline);
+  color: var(--text-primary);
+}
+
+html[data-theme="cosmic_nebula"] .theme-surface,
+html[data-theme="cosmic_nebula"] .theme-nav {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.theme-elevated {
+  background-color: var(--bg-elevated);
+  border-color: var(--border-hairline);
+  color: var(--text-primary);
+}
+
+.theme-input {
+  background-color: var(--bg-input);
+  border-color: var(--border-hairline);
+  color: var(--text-primary);
+}
+
+.theme-nav {
+  background-color: var(--bg-nav);
+  border-color: var(--border-hairline);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.theme-hero {
+  background-image: linear-gradient(
+    135deg,
+    var(--bg-hero-from) 0%,
+    var(--bg-hero-via) 52%,
+    var(--bg-hero-to) 100%
+  );
+  border-color: var(--border-strong);
+  color: #FAF6EB;
+}
+
+html[data-theme="cosmic_nebula"] .theme-hero {
+  background-image:
+    radial-gradient(75% 70% at 90% 10%, rgba(13, 148, 136, 0.22) 0%, transparent 65%),
+    radial-gradient(70% 65% at 10% 90%, rgba(124, 58, 237, 0.25) 0%, transparent 65%),
+    linear-gradient(135deg, rgba(31, 21, 72, 0.86) 0%, rgba(14, 23, 54, 0.82) 52%, rgba(6, 33, 39, 0.84) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.theme-text-muted {
+  color: var(--text-secondary);
+}
+
+.theme-text-gold {
+  color: var(--accent-gold);
+}
+
+.theme-text-gold-soft {
+  color: var(--accent-gold-soft);
+}
+
+/* Harmonize dark surfaces across all 4 deep dark themes so every component adapts seamlessly */
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#062115\],
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#062115\]\/95,
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#141417\],
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#141417\]\/95,
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#141417\]\/80 {
+  background-color: rgba(14, 15, 36, 0.76) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#04180F\],
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#04180F\]\/70,
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#04180F\]\/60,
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#09090B\],
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#09090B\]\/80,
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#09090B\]\/75,
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#09090B\]\/70,
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#09090B\]\/60,
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#0D0D10\] {
+  background-color: rgba(8, 9, 24, 0.84) !important;
+}
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#0A3321\],
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#0A3321\]\/75,
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#0A3321\]\/70,
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#0A3321\]\/80,
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#0A3321\]\/85,
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#1B1B20\],
+html[data-theme="cosmic_nebula"] .dark\:bg-\[\#1A1812\] {
+  background-color: rgba(24, 24, 58, 0.78) !important;
+}
+
+html[data-theme="obsidian_black"] .dark\:bg-\[\#062115\],
+html[data-theme="obsidian_black"] .dark\:bg-\[\#062115\]\/95 {
+  background-color: #141417 !important;
+}
+html[data-theme="obsidian_black"] .dark\:bg-\[\#04180F\],
+html[data-theme="obsidian_black"] .dark\:bg-\[\#04180F\]\/70,
+html[data-theme="obsidian_black"] .dark\:bg-\[\#04180F\]\/60 {
+  background-color: #09090B !important;
+}
+html[data-theme="obsidian_black"] .dark\:bg-\[\#0A3321\],
+html[data-theme="obsidian_black"] .dark\:bg-\[\#0A3321\]\/75,
+html[data-theme="obsidian_black"] .dark\:bg-\[\#0A3321\]\/70,
+html[data-theme="obsidian_black"] .dark\:bg-\[\#0A3321\]\/80,
+html[data-theme="obsidian_black"] .dark\:bg-\[\#0A3321\]\/85 {
+  background-color: #1D1D22 !important;
+}
+
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#062115\],
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#062115\]\/95,
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#141417\],
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#141417\]\/95,
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#141417\]\/80 {
+  background-color: #0D1930 !important;
+}
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#04180F\],
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#04180F\]\/70,
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#04180F\]\/60,
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#09090B\],
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#09090B\]\/80,
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#09090B\]\/75,
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#09090B\]\/70,
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#09090B\]\/60,
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#0D0D10\] {
+  background-color: #060B14 !important;
+}
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#0A3321\],
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#0A3321\]\/75,
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#0A3321\]\/70,
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#0A3321\]\/80,
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#0A3321\]\/85,
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#1B1B20\],
+html[data-theme="midnight_charcoal"] .dark\:bg-\[\#1A1812\] {
+  background-color: #152748 !important;
+}
+
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#062115\],
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#062115\]\/95,
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#141417\],
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#141417\]\/95,
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#141417\]\/80 {
+  background-color: #061A11 !important;
+}
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#04180F\],
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#04180F\]\/70,
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#04180F\]\/60,
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#09090B\],
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#09090B\]\/80,
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#09090B\]\/75,
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#09090B\]\/70,
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#09090B\]\/60,
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#0D0D10\] {
+  background-color: #020A06 !important;
+}
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#0A3321\],
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#0A3321\]\/75,
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#0A3321\]\/70,
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#0A3321\]\/80,
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#0A3321\]\/85,
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#1B1B20\],
+html[data-theme="emerald_shadow"] .dark\:bg-\[\#1A1812\] {
+  background-color: #0B2A1C !important;
+}
+
+/* Harmonize hero dark gradients across the 4 deep dark themes */
+html[data-theme="cosmic_nebula"] .from-\[\#0A3321\],
+html[data-theme="cosmic_nebula"] .from-\[\#141417\],
+html[data-theme="cosmic_nebula"] .from-\[\#181611\] {
+  --tw-gradient-from: rgba(31, 21, 72, 0.92) !important;
+}
+html[data-theme="cosmic_nebula"] .via-\[\#062115\],
+html[data-theme="cosmic_nebula"] .via-\[\#09090B\] {
+  --tw-gradient-via: rgba(14, 23, 54, 0.88) !important;
+}
+html[data-theme="cosmic_nebula"] .to-\[\#062115\],
+html[data-theme="cosmic_nebula"] .to-\[\#04180F\],
+html[data-theme="cosmic_nebula"] .to-\[\#121614\],
+html[data-theme="cosmic_nebula"] .to-\[\#141417\],
+html[data-theme="cosmic_nebula"] .to-\[\#111315\] {
+  --tw-gradient-to: rgba(6, 33, 39, 0.90) !important;
+}
+
+html[data-theme="obsidian_black"] .from-\[\#0A3321\] {
+  --tw-gradient-from: #1B1811 !important;
+}
+html[data-theme="obsidian_black"] .via-\[\#062115\] {
+  --tw-gradient-via: #111114 !important;
+}
+html[data-theme="obsidian_black"] .to-\[\#062115\],
+html[data-theme="obsidian_black"] .to-\[\#04180F\] {
+  --tw-gradient-to: #09090B !important;
+}
+
+html[data-theme="midnight_charcoal"] .from-\[\#0A3321\],
+html[data-theme="midnight_charcoal"] .from-\[\#141417\],
+html[data-theme="midnight_charcoal"] .from-\[\#181611\] {
+  --tw-gradient-from: #122B56 !important;
+}
+html[data-theme="midnight_charcoal"] .via-\[\#062115\],
+html[data-theme="midnight_charcoal"] .via-\[\#09090B\] {
+  --tw-gradient-via: #0B1B38 !important;
+}
+html[data-theme="midnight_charcoal"] .to-\[\#062115\],
+html[data-theme="midnight_charcoal"] .to-\[\#04180F\],
+html[data-theme="midnight_charcoal"] .to-\[\#121614\],
+html[data-theme="midnight_charcoal"] .to-\[\#141417\],
+html[data-theme="midnight_charcoal"] .to-\[\#111315\] {
+  --tw-gradient-to: #060D1A !important;
+}
+
+html[data-theme="emerald_shadow"] .from-\[\#141417\],
+html[data-theme="emerald_shadow"] .from-\[\#181611\],
+html[data-theme="emerald_shadow"] .from-\[\#0A3321\] {
+  --tw-gradient-from: #0D3321 !important;
+}
+html[data-theme="emerald_shadow"] .via-\[\#09090B\],
+html[data-theme="emerald_shadow"] .via-\[\#062115\] {
+  --tw-gradient-via: #061C12 !important;
+}
+html[data-theme="emerald_shadow"] .to-\[\#121614\],
+html[data-theme="emerald_shadow"] .to-\[\#141417\],
+html[data-theme="emerald_shadow"] .to-\[\#111315\],
+html[data-theme="emerald_shadow"] .to-\[\#04180F\] {
+  --tw-gradient-to: #020A06 !important;
+}
+
+.font-display {
+  font-family: 'Cinzel', Georgia, serif;
+}
+
+.font-arabic-quran {
+  font-family: 'Amiri Quran', 'Scheherazade New', 'Noto Naskh Arabic', 'KFGQPC Uthmanic Script HAFS', serif !important;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'kern' 1, 'ccmp' 1, 'mark' 1, 'mkmk' 1;
+  text-rendering: optimizeLegibility;
+}
+
+.font-arabic-scheherazade {
+  font-family: 'Scheherazade New', 'Amiri Quran', 'Noto Naskh Arabic', 'KFGQPC Uthmanic Script HAFS', serif !important;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'kern' 1, 'ccmp' 1, 'mark' 1, 'mkmk' 1;
+  text-rendering: optimizeLegibility;
+}
+
+.font-arabic-indopak {
+  font-family: 'IndoPak Nastaleeq', 'Amiri Quran', 'Scheherazade New', 'Noto Naskh Arabic', serif !important;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'kern' 1, 'ccmp' 1, 'mark' 1, 'mkmk' 1;
+  text-rendering: optimizeLegibility;
+}
+
+.font-arabic-calligraphy {
+  font-family: 'Aref Ruqaa', 'Amiri Quran', 'Scheherazade New', 'Noto Naskh Arabic', serif !important;
+  text-rendering: optimizeLegibility;
+}
+
+[dir="rtl"]:not(.font-urdu):not(.font-arabic-indopak):not(.font-arabic-scheherazade):not(.font-arabic-calligraphy) {
+  font-family: 'Amiri Quran', 'Scheherazade New', 'Noto Naskh Arabic', 'KFGQPC Uthmanic Script HAFS', serif !important;
+  font-feature-settings: 'liga' 1, 'calt' 1, 'kern' 1, 'ccmp' 1, 'mark' 1, 'mkmk' 1;
+  text-rendering: optimizeLegibility;
+}
+
+.font-urdu {
+  font-family: 'Noto Nastaliq Urdu', 'Noto Naskh Arabic', 'Amiri Quran', serif;
+  line-height: 2.3;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #C59B27 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.28);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}

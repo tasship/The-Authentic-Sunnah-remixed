@@ -1,0 +1,131 @@
+{
+  "entities": {
+    "InstallationSession": {
+      "title": "InstallationSession",
+      "description": "Anonymous device session telemetry record without any personally identifiable information.",
+      "type": "object",
+      "properties": {
+        "installId": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Locally generated anonymous installation UUID."
+        },
+        "region": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "description": "Coarse inferred geographical region or locale string."
+        },
+        "timezone": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "description": "Coarse IANA timezone name."
+        },
+        "preferredTheme": {
+          "type": "string",
+          "enum": ["obsidian_black", "cosmic_nebula", "midnight_charcoal", "emerald_shadow", "warm_alabaster"],
+          "maxLength": 32,
+          "description": "Active visual theme identifier."
+        },
+        "preferredReciter": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 48,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Active Quran reciter identifier."
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["pwa", "web"],
+          "maxLength": 16,
+          "description": "Execution mode identifier."
+        },
+        "lastActiveAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of latest heartbeat."
+        }
+      },
+      "required": ["installId", "region", "timezone", "preferredTheme", "preferredReciter", "platform", "lastActiveAt"]
+    },
+    "FeatureMetric": {
+      "title": "FeatureMetric",
+      "description": "Anonymous aggregate popularity counter for app sections, modules, and reciters.",
+      "type": "object",
+      "properties": {
+        "featureId": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Unique identifier of the tracked feature."
+        },
+        "category": {
+          "type": "string",
+          "enum": ["navigation", "reciter", "explore", "audio", "hifz", "ai"],
+          "maxLength": 24,
+          "description": "Telemetry category grouping."
+        },
+        "count": {
+          "type": "integer",
+          "description": "Monotonically increasing anonymous usage count."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of latest usage event."
+        }
+      },
+      "required": ["featureId", "category", "count", "updatedAt"]
+    },
+    "CommunityStats": {
+      "title": "CommunityStats",
+      "description": "Singleton global anonymous Ummah activity ticker metrics.",
+      "type": "object",
+      "properties": {
+        "activeNowCount": {
+          "type": "integer",
+          "description": "Estimated concurrent active Muslim readers worldwide."
+        },
+        "versesRecitedToday": {
+          "type": "integer",
+          "description": "Aggregate verses recited today across anonymous sessions."
+        },
+        "totalVersesAllTime": {
+          "type": "integer",
+          "description": "Aggregate verses recited across all time."
+        },
+        "dayKey": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+          "description": "UTC YYYY-MM-DD counter window key."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of latest aggregate update."
+        }
+      },
+      "required": ["activeNowCount", "versesRecitedToday", "totalVersesAllTime", "dayKey", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/installations/{installId}": {
+      "schema": { "$ref": "#/entities/InstallationSession" },
+      "description": "Anonymous installation heartbeats with zero PII and no collection listing."
+    },
+    "/feature_stats/{featureId}": {
+      "schema": { "$ref": "#/entities/FeatureMetric" },
+      "description": "Anonymous feature usage popularity counters."
+    },
+    "/community_stats/{statsId}": {
+      "schema": { "$ref": "#/entities/CommunityStats" },
+      "description": "Global anonymous Ummah activity ticker document (`global`)."
+    }
+  }
+}
